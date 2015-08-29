@@ -1,0 +1,31 @@
+class Player
+	health
+	damage
+	critChance
+	blockChance
+	parryChance
+	dodgeChance
+	gold
+	wepEquiped
+	shieldEquid
+	equpedWeapon
+	equipedShield
+
+class Shield
+        public string ShieldName { get; set; }
+        public int ShieldArmor { get; set; }
+        public BonusStats BonusStatistics { get; set; }
+        public int ShieldBlockChance { get; set; }
+
+
+class Armor
+	public string ArmorName { get; set; }
+        public int ArmorPoints { get; set; }
+        public BonusStats BonusStatistics { get; set; }
+        public int ArmorDodgeChance { get; set; }
+
+class Weapon
+        public string WeaponName { get; set; }
+        public int WeaponDamage { get; set; }
+        public BonusStats BonusStatistics { get; set; }
+        public int ParryChance { get; set; }

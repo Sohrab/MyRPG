@@ -1,0 +1,11 @@
+r1
+#FF8A8A8A
+
+r2
+#FF007FFF
+
+r3
+#FFCE41FF
+
+r4
+#FFEA9A05

@@ -1,0 +1,6 @@
+Fixa GO knappen som ska ändra properties för VictoryTexten.
+
+Fixa "Load" knappen så att ifall inget är sparat på hårdisken så ska inte man
+navigeras till "HomePage".
+
+Lägg till Sälj funktion.

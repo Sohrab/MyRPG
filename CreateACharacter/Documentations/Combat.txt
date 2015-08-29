@@ -1,0 +1,78 @@
+Enemy Values:
+string namn
+int hp
+int armor
+int damage
+
+
+
+
+Combat Rules:
+-----------------------------------------------------------------------------------------
+Enemy crit chance = 15%
+Sucessful crit = 2x damage
+
+
+1000 armor = 100% damage red.
+successful parry = 100% damage red.
+successful block = 100% damage red.
+successful dodge = 100% damage red.
+
+
+
+
+Combat Rotation:
+-------------------------------------------------------------------------------------------------
+Attack Enemy
+1. combat text ="\r\n" + "You hit" or Player.Name + " hits"
+2. crit = false
+3. rnd = 1-101 
+4. check if rnd >= 30 - if false - end method
+	combat text = "You missed your attack"
+5. damage = Player.Damage
+6. check if rnd <= Player.CritChance  - if true - damage x2, crit = true
+7. damageReduction = Enemy.Armor / 1000
+8. damage = damage - damage * damageReduction
+9. Enemy.hp - damage
+10. Add text to combat log
+	"You hit " + Enemy.Name + "for " +
+			if crit == true
+				+ " critical"
+
+			+ " damage."
+
+
+
+Enemy Attacks You
+1. combat text = "\r\n" + Player.Name 
+2. crit = false
+3. rnd = 1-101
+4. damage = Enemy.Damage
+5. check if rnd <= 15 - if true - damage x2, crit = true
+6. check if rnd <= Player.ParryChance - if true - end method
+	combat text = "You parried incomming " + 
+			if crit == true
+			+ " critical"
+			
+			damage + " damage."
+7. check if rnd <= Plaer.BlockChance - end method
+	combat text = "You blocked incomming " + damage +
+			if crit == true
+			+ " critical"
+			
+			damage + " damage."
+8. check if rnd <= Player.ParryChance - if true - end method
+	combat text = "You dodged incomming " + damage + 
+			if crit == true
+			+ " critical"
+			
+			damage + " damage."
+7. damageReduction = Player.Armor / 1000
+8. damage = damage - damage * damageReduction
+9. Player.hp - damage
+10. Add text to combat log
+	Enemy.Name + "hits you for " 
+			if crit == true
+				+ " critical"
+
+			damage + " damage."
