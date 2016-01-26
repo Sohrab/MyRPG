@@ -54,6 +54,7 @@ namespace CreateACharacter.Model
 
         public static string CheckLines(string str, int linesCount)
         {
+
             //Check if more than 10 lines
             //If true, remove first line
             string[] lines = str.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
@@ -84,70 +85,80 @@ namespace CreateACharacter.Model
 
         public void AttackEnemy(Enemy advEnemy)
         {
-            CombatLog += "\r\n";
-            bool crit = false;
-            int damage = Repository.Player.Damage;
-            float drProcent;
-            float damageReduction;
-            int randomizer;
-            if (rnd.Next(1, 101) <= 30)
+            try
             {
-                CombatLog += "You missed your attack.";
-            }
-            else
-            {
-                if (rnd.Next(1, 101) <= Repository.Player.CritChance)
+                CombatLog += "\r\n";
+                bool crit = false;
+                int damage = Repository.Player.Damage;
+                float drProcent;
+                float damageReduction;
+                int randomizer;
+                if (rnd.Next(1, 101) <= 30)
                 {
-                    damage = damage * 2;
-                    crit = true;
-                }
-
-                drProcent = advEnemy.Armor / 1000f;
-                damageReduction = damage * drProcent;
-                
-                randomizer = rnd.Next(1, advEnemy.RandomiZer);
-                if (randomizer > damage)
-                {
-                    damage += randomizer;
+                    CombatLog += "You missed your attack.";
+                   
                 }
                 else
                 {
-                    if (rnd.Next(1, 2) == 2)
+                    if (rnd.Next(1, 101) <= Repository.Player.CritChance)
+                    {
+                        damage = damage * 2;
+                        crit = true;
+                    }
+
+                    drProcent = advEnemy.Armor / 1000f;
+                    damageReduction = damage * drProcent;
+
+                    randomizer = rnd.Next(1, advEnemy.RandomiZer);
+                    if (randomizer > damage)
                     {
                         damage += randomizer;
                     }
                     else
                     {
-                        damage -= randomizer;
+                        if (rnd.Next(1, 2) == 2)
+                        {
+                            damage += randomizer;
+                        }
+                        else
+                        {
+                            damage -= randomizer;
+                        }
                     }
+
+                    damage = (int)(damage - damageReduction);
+                    advEnemy.HealthPoints -= damage;
+
+                    CombatLog += "You hit " + advEnemy.EnemyName;
+                    if (randomizer < advEnemy.RandomiZer / 2)
+                    {
+                        CombatLog += " hard for " + damage;
+                    }
+                    else
+                    {
+                        CombatLog += " poorly for " + damage;
+
+                    }
+
+                    if (crit == true)
+                    {
+                        CombatLog += " critical";
+                    }
+
+                    CombatLog += " damage.";
                 }
 
-                damage = (int)(damage - damageReduction);
-                advEnemy.HealthPoints -= damage;
+                PlayerTurn = false;
 
-                CombatLog += "You hit " + advEnemy.EnemyName;
-                if (randomizer < advEnemy.RandomiZer / 2)
-                {
-                    CombatLog += " hard for " + damage;
-                }
-                else
-                {
-                    CombatLog += " poorly for " + damage;
-                    
-                }
-
-                if (crit == true)
-                {
-                    CombatLog += " critical";
-                }
-
-                CombatLog += " damage.";
+                CheckVictoryConditions(advEnemy);
+                //SetEnemyHp(advEnemy);
             }
+            catch (Exception ex)
+            {
 
-            PlayerTurn = false;
-
-            CheckVictoryConditions(advEnemy);
-            //SetEnemyHp(advEnemy);
+                CombatLog += ex;
+            }
+            
         }
 
         private void SetEnemyHp(Enemy _enemy)
