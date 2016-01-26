@@ -205,7 +205,7 @@
     </Reference>
     <Reference Include="PropertyChangedBase, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\WIN\PropertyChangedBase\PropertyChangedBase\bin\Debug\PropertyChangedBase.dll</HintPath>
+      <HintPath>.\PropertyChangedBase.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup />
